@@ -26,8 +26,12 @@ throw err;
 }
 exports.editPost = (req,res,next)=>{
     let id = req.params._id;
-    return res.render('editPost',{id});
+    List.findById(req.params._id, (err, data)=>{
+        if(err){throw err;}
+        if(data){return res.render('editPost',{id,data}) }
+    })
 }
+    
 
 exports.updatePost = (req,res,next)=>{
 List.findByIdAndUpdate(req.body.id, 
